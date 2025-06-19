@@ -1,14 +1,32 @@
-FROM jupyter/pyspark-notebook:latest
+FROM jupyter/pyspark-notebook:spark-3.3.0
 
-# (facultatif) Ajout de dépendances si nécessaire
-COPY requirements.txt /tmp/
+# Passer en root pour installer Hadoop et les libs natives
+USER root
+
+# Définition de HADOOP_HOME et création du dossier
+ENV HADOOP_HOME=/usr/local/hadoop
+RUN mkdir -p $HADOOP_HOME \
+    && chown -R jovyan:users $HADOOP_HOME
+
+# Installer les bibliothèques natives pour Snappy et LZ4
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+      libsnappy1v5 libsnappy-dev \
+      liblz4-1 liblz4-dev && \
+    rm -rf /var/lib/apt/lists/*
+
+# Revenir à l’utilisateur jovyan pour l’exécution Jupyter
+USER jovyan
+
+# Copie des dépendances Python
+COPY requirements.txt /tmp/requirements.txt
 RUN pip install --no-cache-dir -r /tmp/requirements.txt
 
-# Copier le notebook dans le conteneur
-COPY openfoodfacts_etl_colab.ipynb /home/jovyan/work/
+# Copie du contenu du projet
+COPY --chown=jovyan:users . /home/jovyan/work/
 
-# Dossier de travail
+# Répertoire de travail
 WORKDIR /home/jovyan/work
 
-# Exposer Jupyter
+# Exposition du port Jupyter
 EXPOSE 8888

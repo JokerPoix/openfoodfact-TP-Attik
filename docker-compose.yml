@@ -3,6 +3,8 @@ version: '3.8'
 services:
   spark-notebook:
     build: .
+    environment:
+      - HADOOP_HOME=/usr/local/hadoop
     ports:
       - "8888:8888"
     volumes:
