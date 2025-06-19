@@ -1,9 +1,21 @@
+# Caches Python / notebooks
 __pycache__/
 .ipynb_checkpoints/
+
+# Fichiers temporaires Spark / Hadoop
+*.crc
+_SUCCESS
+
+# Fichiers de données volumineux
 *.parquet
 *.csv
-.env
-*.crc
+data/*.csv
+data/*.csv.gz
+data/*.tsv
+data/*.json
+data/step1_raw_csv/
+data/en.openfoodfacts.org.products.csv.gz
+
+# Artifacts ou résultats intermédiaires
 artifacts/
-_SUCCESS
-data/*.csv.gz" 
+.env
