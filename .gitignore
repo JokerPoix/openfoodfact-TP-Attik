@@ -2,5 +2,5 @@ __pycache__/
 .ipynb_checkpoints/
 *.parquet
 *.csv
-*.gz
 .env
+artifacts/

@@ -6,4 +6,6 @@ services:
     ports:
       - "8888:8888"
     volumes:
-      - .:/home/jovyan/work
+      - ./data:/home/jovyan/work/data
+      - ./notebooks:/home/jovyan/work/notebooks
+    command: start-notebook.sh --NotebookApp.token='' --NotebookApp.password=''

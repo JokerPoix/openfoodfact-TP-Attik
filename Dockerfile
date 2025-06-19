@@ -5,7 +5,7 @@ COPY requirements.txt /tmp/
 RUN pip install --no-cache-dir -r /tmp/requirements.txt
 
 # Copier le notebook dans le conteneur
-COPY openfoodfacts_etl.ipynb /home/jovyan/work/
+COPY openfoodfacts_etl_colab.ipynb /home/jovyan/work/
 
 # Dossier de travail
 WORKDIR /home/jovyan/work
