@@ -12,7 +12,6 @@ _SUCCESS
 data/*.csv
 data/*.csv.gz
 data/*.tsv
-data/*.json
 data/step1_raw_csv/
 data/en.openfoodfacts.org.products.csv.gz
 
