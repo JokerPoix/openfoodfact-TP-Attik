@@ -22,6 +22,11 @@ USER jovyan
 COPY requirements.txt /tmp/requirements.txt
 RUN pip install --no-cache-dir -r /tmp/requirements.txt
 
+# ✅ Activer les widgets dans JupyterLab
+RUN pip install ipywidgets && \
+    jupyter labextension install @jupyter-widgets/jupyterlab-manager --no-build && \
+    jupyter lab build
+
 # Copie du contenu du projet
 COPY --chown=jovyan:users . /home/jovyan/work/
 

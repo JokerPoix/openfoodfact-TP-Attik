@@ -1,2 +1,7 @@
 pandas
 pyarrow
+plotly
+ipywidgets
+matplotlib
+seaborn
+scikit-learn
