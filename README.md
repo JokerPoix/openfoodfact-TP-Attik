@@ -5,9 +5,7 @@
 ### 1. Cloner le projet
 
 ```bash
-git clone https://github.com/ton-profil/openfoodfacts-etl](https://github.com/JokerPoix/openfoodfact-TP-Attik.git
-cd openfoodfacts-etl
-docker-compose up --build
+git clone https://github.com/JokerPoix/openfoodfact-TP-Attik.git
 ```
 
 ### 2. Lancer le projet
