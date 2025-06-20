@@ -1,0 +1,560 @@
+📄 Journal d'exécution - Fri Jun 20 02:50:28 AM UTC 2025
+[Fri Jun 20 02:51:44 AM UTC 2025] ▶️ DÉBUT : 01_ingestion.ipynb
+[NbConvertApp] Converting notebook 01_ingestion.ipynb to notebook
+Setting default log level to "WARN".
+To adjust logging level use sc.setLogLevel(newLevel). For SparkR, use setLogLevel(newLevel).
+25/06/20 02:52:35 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+Traceback (most recent call last):
+  File "/opt/conda/bin/jupyter-nbconvert", line 10, in <module>
+    sys.exit(main())
+  File "/opt/conda/lib/python3.10/site-packages/jupyter_core/application.py", line 269, in launch_instance
+    return super().launch_instance(argv=argv, **kwargs)
+  File "/opt/conda/lib/python3.10/site-packages/traitlets/config/application.py", line 982, in launch_instance
+    app.start()
+  File "/opt/conda/lib/python3.10/site-packages/nbconvert/nbconvertapp.py", line 426, in start
+    self.convert_notebooks()
+  File "/opt/conda/lib/python3.10/site-packages/nbconvert/nbconvertapp.py", line 600, in convert_notebooks
+    self.convert_single_notebook(notebook_filename)
+  File "/opt/conda/lib/python3.10/site-packages/nbconvert/nbconvertapp.py", line 563, in convert_single_notebook
+    output, resources = self.export_single_notebook(
+  File "/opt/conda/lib/python3.10/site-packages/nbconvert/nbconvertapp.py", line 491, in export_single_notebook
+    output, resources = self.exporter.from_filename(
+  File "/opt/conda/lib/python3.10/site-packages/nbconvert/exporters/exporter.py", line 190, in from_filename
+    return self.from_file(f, resources=resources, **kw)
+  File "/opt/conda/lib/python3.10/site-packages/nbconvert/exporters/exporter.py", line 207, in from_file
+    return self.from_notebook_node(
+  File "/opt/conda/lib/python3.10/site-packages/nbconvert/exporters/notebook.py", line 35, in from_notebook_node
+    nb_copy, resources = super().from_notebook_node(nb, resources, **kw)
+  File "/opt/conda/lib/python3.10/site-packages/nbconvert/exporters/exporter.py", line 147, in from_notebook_node
+    nb_copy, resources = self._preprocess(nb_copy, resources)
+  File "/opt/conda/lib/python3.10/site-packages/nbconvert/exporters/exporter.py", line 342, in _preprocess
+    nbc, resc = preprocessor(nbc, resc)
+  File "/opt/conda/lib/python3.10/site-packages/nbconvert/preprocessors/base.py", line 47, in __call__
+    return self.preprocess(nb, resources)
+  File "/opt/conda/lib/python3.10/site-packages/nbconvert/preprocessors/execute.py", line 91, in preprocess
+    self.preprocess_cell(cell, resources, index)
+  File "/opt/conda/lib/python3.10/site-packages/nbconvert/preprocessors/execute.py", line 112, in preprocess_cell
+    cell = self.execute_cell(cell, index, store_history=True)
+  File "/opt/conda/lib/python3.10/site-packages/nbclient/util.py", line 85, in wrapped
+    return just_run(coro(*args, **kwargs))
+  File "/opt/conda/lib/python3.10/site-packages/nbclient/util.py", line 60, in just_run
+    return loop.run_until_complete(coro)
+  File "/opt/conda/lib/python3.10/site-packages/nest_asyncio.py", line 90, in run_until_complete
+    return f.result()
+  File "/opt/conda/lib/python3.10/asyncio/futures.py", line 201, in result
+    raise self._exception.with_traceback(self._exception_tb)
+  File "/opt/conda/lib/python3.10/asyncio/tasks.py", line 232, in __step
+    result = coro.send(None)
+  File "/opt/conda/lib/python3.10/site-packages/nbclient/client.py", line 1019, in async_execute_cell
+    await self._check_raise_for_error(cell, cell_index, exec_reply)
+  File "/opt/conda/lib/python3.10/site-packages/nbclient/client.py", line 913, in _check_raise_for_error
+    raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
+nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
+------------------
+# 🚀 Création de la SparkSession
+spark = SparkSession.builder \
+    .appName("OpenFoodFacts Ingestion") \
+    .master("local[*]") \
+    .getOrCreate()
+------------------
+
+[0;31m---------------------------------------------------------------------------[0m
+[0;31mTypeError[0m                                 Traceback (most recent call last)
+Cell [0;32mIn [3], line 5[0m
+[1;32m      1[0m [38;5;66;03m# 🚀 Création de la SparkSession[39;00m
+[1;32m      2[0m spark [38;5;241m=[39m [43mSparkSession[49m[38;5;241;43m.[39;49m[43mbuilder[49m[43m [49m[43m\[49m
+[1;32m      3[0m [43m    [49m[38;5;241;43m.[39;49m[43mappName[49m[43m([49m[38;5;124;43m"[39;49m[38;5;124;43mOpenFoodFacts Ingestion[39;49m[38;5;124;43m"[39;49m[43m)[49m[43m [49m[43m\[49m
+[1;32m      4[0m [43m    [49m[38;5;241;43m.[39;49m[43mmaster[49m[43m([49m[38;5;124;43m"[39;49m[38;5;124;43mlocal[*][39;49m[38;5;124;43m"[39;49m[43m)[49m[43m [49m[43m\[49m
+[0;32m----> 5[0m [43m    [49m[38;5;241;43m.[39;49m[43mgetOrCreate[49m[43m([49m[43m)[49m
+
+File [0;32m/opt/conda/lib/python3.10/site-packages/pyspark/sql/session.py:559[0m, in [0;36mSparkSession.Builder.getOrCreate[0;34m(self)[0m
+[1;32m    556[0m     sc [38;5;241m=[39m SparkContext[38;5;241m.[39mgetOrCreate(sparkConf)
+[1;32m    557[0m     [38;5;66;03m# Do not update `SparkConf` for existing `SparkContext`, as it's shared[39;00m
+[1;32m    558[0m     [38;5;66;03m# by all sessions.[39;00m
+[0;32m--> 559[0m     session [38;5;241m=[39m [43mSparkSession[49m[43m([49m[43msc[49m[43m,[49m[43m [49m[43moptions[49m[38;5;241;43m=[39;49m[38;5;28;43mself[39;49m[38;5;241;43m.[39;49m[43m_options[49m[43m)[49m
+[1;32m    560[0m [38;5;28;01melse[39;00m:
+[1;32m    561[0m     module [38;5;241m=[39m SparkSession[38;5;241m.[39m_get_j_spark_session_module(session[38;5;241m.[39m_jvm)
+
+File [0;32m/opt/conda/lib/python3.10/site-packages/pyspark/sql/session.py:635[0m, in [0;36mSparkSession.__init__[0;34m(self, sparkContext, jsparkSession, options)[0m
+[1;32m    631[0m jSparkSessionModule [38;5;241m=[39m SparkSession[38;5;241m.[39m_get_j_spark_session_module([38;5;28mself[39m[38;5;241m.[39m_jvm)
+[1;32m    633[0m [38;5;28;01mif[39;00m jsparkSession [38;5;129;01mis[39;00m [38;5;28;01mNone[39;00m:
+[1;32m    634[0m     [38;5;28;01mif[39;00m (
+[0;32m--> 635[0m         [43mjSparkSessionClass[49m[38;5;241;43m.[39;49m[43mgetDefaultSession[49m[43m([49m[43m)[49m[38;5;241m.[39misDefined()
+[1;32m    636[0m         [38;5;129;01mand[39;00m [38;5;129;01mnot[39;00m jSparkSessionClass[38;5;241m.[39mgetDefaultSession()[38;5;241m.[39mget()[38;5;241m.[39msparkContext()[38;5;241m.[39misStopped()
+[1;32m    637[0m     ):
+[1;32m    638[0m         jsparkSession [38;5;241m=[39m jSparkSessionClass[38;5;241m.[39mgetDefaultSession()[38;5;241m.[39mget()
+[1;32m    639[0m         jSparkSessionModule[38;5;241m.[39mapplyModifiableSettings(jsparkSession, options)
+
+[0;31mTypeError[0m: 'JavaPackage' object is not callable
+TypeError: 'JavaPackage' object is not callable
+
+[Fri Jun 20 02:52:40 AM UTC 2025] ❌ ÉCHEC : 01_ingestion.ipynb
+[Fri Jun 20 02:52:40 AM UTC 2025] ▶️ DÉBUT : 02_cleaning.ipynb
+[NbConvertApp] Converting notebook 02_cleaning.ipynb to notebook
+Setting default log level to "WARN".
+To adjust logging level use sc.setLogLevel(newLevel). For SparkR, use setLogLevel(newLevel).
+25/06/20 02:52:45 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+Traceback (most recent call last):
+  File "/opt/conda/bin/jupyter-nbconvert", line 10, in <module>
+    sys.exit(main())
+  File "/opt/conda/lib/python3.10/site-packages/jupyter_core/application.py", line 269, in launch_instance
+    return super().launch_instance(argv=argv, **kwargs)
+  File "/opt/conda/lib/python3.10/site-packages/traitlets/config/application.py", line 982, in launch_instance
+    app.start()
+  File "/opt/conda/lib/python3.10/site-packages/nbconvert/nbconvertapp.py", line 426, in start
+    self.convert_notebooks()
+  File "/opt/conda/lib/python3.10/site-packages/nbconvert/nbconvertapp.py", line 600, in convert_notebooks
+    self.convert_single_notebook(notebook_filename)
+  File "/opt/conda/lib/python3.10/site-packages/nbconvert/nbconvertapp.py", line 563, in convert_single_notebook
+    output, resources = self.export_single_notebook(
+  File "/opt/conda/lib/python3.10/site-packages/nbconvert/nbconvertapp.py", line 491, in export_single_notebook
+    output, resources = self.exporter.from_filename(
+  File "/opt/conda/lib/python3.10/site-packages/nbconvert/exporters/exporter.py", line 190, in from_filename
+    return self.from_file(f, resources=resources, **kw)
+  File "/opt/conda/lib/python3.10/site-packages/nbconvert/exporters/exporter.py", line 207, in from_file
+    return self.from_notebook_node(
+  File "/opt/conda/lib/python3.10/site-packages/nbconvert/exporters/notebook.py", line 35, in from_notebook_node
+    nb_copy, resources = super().from_notebook_node(nb, resources, **kw)
+  File "/opt/conda/lib/python3.10/site-packages/nbconvert/exporters/exporter.py", line 147, in from_notebook_node
+    nb_copy, resources = self._preprocess(nb_copy, resources)
+  File "/opt/conda/lib/python3.10/site-packages/nbconvert/exporters/exporter.py", line 342, in _preprocess
+    nbc, resc = preprocessor(nbc, resc)
+  File "/opt/conda/lib/python3.10/site-packages/nbconvert/preprocessors/base.py", line 47, in __call__
+    return self.preprocess(nb, resources)
+  File "/opt/conda/lib/python3.10/site-packages/nbconvert/preprocessors/execute.py", line 91, in preprocess
+    self.preprocess_cell(cell, resources, index)
+  File "/opt/conda/lib/python3.10/site-packages/nbconvert/preprocessors/execute.py", line 112, in preprocess_cell
+    cell = self.execute_cell(cell, index, store_history=True)
+  File "/opt/conda/lib/python3.10/site-packages/nbclient/util.py", line 85, in wrapped
+    return just_run(coro(*args, **kwargs))
+  File "/opt/conda/lib/python3.10/site-packages/nbclient/util.py", line 60, in just_run
+    return loop.run_until_complete(coro)
+  File "/opt/conda/lib/python3.10/site-packages/nest_asyncio.py", line 90, in run_until_complete
+    return f.result()
+  File "/opt/conda/lib/python3.10/asyncio/futures.py", line 201, in result
+    raise self._exception.with_traceback(self._exception_tb)
+  File "/opt/conda/lib/python3.10/asyncio/tasks.py", line 232, in __step
+    result = coro.send(None)
+  File "/opt/conda/lib/python3.10/site-packages/nbclient/client.py", line 1019, in async_execute_cell
+    await self._check_raise_for_error(cell, cell_index, exec_reply)
+  File "/opt/conda/lib/python3.10/site-packages/nbclient/client.py", line 913, in _check_raise_for_error
+    raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
+nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
+------------------
+# 0. Stoppe toute session existante
+try:
+    spark.stop()
+except:
+    pass
+
+# 1. Recréation SparkSession en local, FS local et driver binding fixe
+from pyspark.sql import SparkSession
+spark = (
+    SparkSession.builder
+        .appName("NettoyageData")
+        .master("local[*]")
+        .config("spark.hadoop.fs.defaultFS", "file:///")
+        .config("spark.driver.host", "127.0.0.1")
+        .config("spark.driver.bindAddress", "0.0.0.0")
+    .getOrCreate()
+)
+
+------------------
+
+[0;31m---------------------------------------------------------------------------[0m
+[0;31mTypeError[0m                                 Traceback (most recent call last)
+Cell [0;32mIn [1], line 16[0m
+[1;32m      7[0m [38;5;66;03m# 1. Recréation SparkSession en local, FS local et driver binding fixe[39;00m
+[1;32m      8[0m [38;5;28;01mfrom[39;00m [38;5;21;01mpyspark[39;00m[38;5;21;01m.[39;00m[38;5;21;01msql[39;00m [38;5;28;01mimport[39;00m SparkSession
+[1;32m      9[0m spark [38;5;241m=[39m (
+[1;32m     10[0m     [43mSparkSession[49m[38;5;241;43m.[39;49m[43mbuilder[49m
+[1;32m     11[0m [43m        [49m[38;5;241;43m.[39;49m[43mappName[49m[43m([49m[38;5;124;43m"[39;49m[38;5;124;43mNettoyageData[39;49m[38;5;124;43m"[39;49m[43m)[49m
+[1;32m     12[0m [43m        [49m[38;5;241;43m.[39;49m[43mmaster[49m[43m([49m[38;5;124;43m"[39;49m[38;5;124;43mlocal[*][39;49m[38;5;124;43m"[39;49m[43m)[49m
+[1;32m     13[0m [43m        [49m[38;5;241;43m.[39;49m[43mconfig[49m[43m([49m[38;5;124;43m"[39;49m[38;5;124;43mspark.hadoop.fs.defaultFS[39;49m[38;5;124;43m"[39;49m[43m,[49m[43m [49m[38;5;124;43m"[39;49m[38;5;124;43mfile:///[39;49m[38;5;124;43m"[39;49m[43m)[49m
+[1;32m     14[0m [43m        [49m[38;5;241;43m.[39;49m[43mconfig[49m[43m([49m[38;5;124;43m"[39;49m[38;5;124;43mspark.driver.host[39;49m[38;5;124;43m"[39;49m[43m,[49m[43m [49m[38;5;124;43m"[39;49m[38;5;124;43m127.0.0.1[39;49m[38;5;124;43m"[39;49m[43m)[49m
+[1;32m     15[0m [43m        [49m[38;5;241;43m.[39;49m[43mconfig[49m[43m([49m[38;5;124;43m"[39;49m[38;5;124;43mspark.driver.bindAddress[39;49m[38;5;124;43m"[39;49m[43m,[49m[43m [49m[38;5;124;43m"[39;49m[38;5;124;43m0.0.0.0[39;49m[38;5;124;43m"[39;49m[43m)[49m
+[0;32m---> 16[0m [43m    [49m[38;5;241;43m.[39;49m[43mgetOrCreate[49m[43m([49m[43m)[49m
+[1;32m     17[0m )
+
+File [0;32m/opt/conda/lib/python3.10/site-packages/pyspark/sql/session.py:559[0m, in [0;36mSparkSession.Builder.getOrCreate[0;34m(self)[0m
+[1;32m    556[0m     sc [38;5;241m=[39m SparkContext[38;5;241m.[39mgetOrCreate(sparkConf)
+[1;32m    557[0m     [38;5;66;03m# Do not update `SparkConf` for existing `SparkContext`, as it's shared[39;00m
+[1;32m    558[0m     [38;5;66;03m# by all sessions.[39;00m
+[0;32m--> 559[0m     session [38;5;241m=[39m [43mSparkSession[49m[43m([49m[43msc[49m[43m,[49m[43m [49m[43moptions[49m[38;5;241;43m=[39;49m[38;5;28;43mself[39;49m[38;5;241;43m.[39;49m[43m_options[49m[43m)[49m
+[1;32m    560[0m [38;5;28;01melse[39;00m:
+[1;32m    561[0m     module [38;5;241m=[39m SparkSession[38;5;241m.[39m_get_j_spark_session_module(session[38;5;241m.[39m_jvm)
+
+File [0;32m/opt/conda/lib/python3.10/site-packages/pyspark/sql/session.py:635[0m, in [0;36mSparkSession.__init__[0;34m(self, sparkContext, jsparkSession, options)[0m
+[1;32m    631[0m jSparkSessionModule [38;5;241m=[39m SparkSession[38;5;241m.[39m_get_j_spark_session_module([38;5;28mself[39m[38;5;241m.[39m_jvm)
+[1;32m    633[0m [38;5;28;01mif[39;00m jsparkSession [38;5;129;01mis[39;00m [38;5;28;01mNone[39;00m:
+[1;32m    634[0m     [38;5;28;01mif[39;00m (
+[0;32m--> 635[0m         [43mjSparkSessionClass[49m[38;5;241;43m.[39;49m[43mgetDefaultSession[49m[43m([49m[43m)[49m[38;5;241m.[39misDefined()
+[1;32m    636[0m         [38;5;129;01mand[39;00m [38;5;129;01mnot[39;00m jSparkSessionClass[38;5;241m.[39mgetDefaultSession()[38;5;241m.[39mget()[38;5;241m.[39msparkContext()[38;5;241m.[39misStopped()
+[1;32m    637[0m     ):
+[1;32m    638[0m         jsparkSession [38;5;241m=[39m jSparkSessionClass[38;5;241m.[39mgetDefaultSession()[38;5;241m.[39mget()
+[1;32m    639[0m         jSparkSessionModule[38;5;241m.[39mapplyModifiableSettings(jsparkSession, options)
+
+[0;31mTypeError[0m: 'JavaPackage' object is not callable
+TypeError: 'JavaPackage' object is not callable
+
+[Fri Jun 20 02:52:50 AM UTC 2025] ❌ ÉCHEC : 02_cleaning.ipynb
+[Fri Jun 20 02:52:50 AM UTC 2025] ▶️ DÉBUT : 03_enrichment.ipynb
+[NbConvertApp] Converting notebook 03_enrichment.ipynb to notebook
+Setting default log level to "WARN".
+To adjust logging level use sc.setLogLevel(newLevel). For SparkR, use setLogLevel(newLevel).
+25/06/20 02:52:55 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+Traceback (most recent call last):
+  File "/opt/conda/bin/jupyter-nbconvert", line 10, in <module>
+    sys.exit(main())
+  File "/opt/conda/lib/python3.10/site-packages/jupyter_core/application.py", line 269, in launch_instance
+    return super().launch_instance(argv=argv, **kwargs)
+  File "/opt/conda/lib/python3.10/site-packages/traitlets/config/application.py", line 982, in launch_instance
+    app.start()
+  File "/opt/conda/lib/python3.10/site-packages/nbconvert/nbconvertapp.py", line 426, in start
+    self.convert_notebooks()
+  File "/opt/conda/lib/python3.10/site-packages/nbconvert/nbconvertapp.py", line 600, in convert_notebooks
+    self.convert_single_notebook(notebook_filename)
+  File "/opt/conda/lib/python3.10/site-packages/nbconvert/nbconvertapp.py", line 563, in convert_single_notebook
+    output, resources = self.export_single_notebook(
+  File "/opt/conda/lib/python3.10/site-packages/nbconvert/nbconvertapp.py", line 491, in export_single_notebook
+    output, resources = self.exporter.from_filename(
+  File "/opt/conda/lib/python3.10/site-packages/nbconvert/exporters/exporter.py", line 190, in from_filename
+    return self.from_file(f, resources=resources, **kw)
+  File "/opt/conda/lib/python3.10/site-packages/nbconvert/exporters/exporter.py", line 207, in from_file
+    return self.from_notebook_node(
+  File "/opt/conda/lib/python3.10/site-packages/nbconvert/exporters/notebook.py", line 35, in from_notebook_node
+    nb_copy, resources = super().from_notebook_node(nb, resources, **kw)
+  File "/opt/conda/lib/python3.10/site-packages/nbconvert/exporters/exporter.py", line 147, in from_notebook_node
+    nb_copy, resources = self._preprocess(nb_copy, resources)
+  File "/opt/conda/lib/python3.10/site-packages/nbconvert/exporters/exporter.py", line 342, in _preprocess
+    nbc, resc = preprocessor(nbc, resc)
+  File "/opt/conda/lib/python3.10/site-packages/nbconvert/preprocessors/base.py", line 47, in __call__
+    return self.preprocess(nb, resources)
+  File "/opt/conda/lib/python3.10/site-packages/nbconvert/preprocessors/execute.py", line 91, in preprocess
+    self.preprocess_cell(cell, resources, index)
+  File "/opt/conda/lib/python3.10/site-packages/nbconvert/preprocessors/execute.py", line 112, in preprocess_cell
+    cell = self.execute_cell(cell, index, store_history=True)
+  File "/opt/conda/lib/python3.10/site-packages/nbclient/util.py", line 85, in wrapped
+    return just_run(coro(*args, **kwargs))
+  File "/opt/conda/lib/python3.10/site-packages/nbclient/util.py", line 60, in just_run
+    return loop.run_until_complete(coro)
+  File "/opt/conda/lib/python3.10/site-packages/nest_asyncio.py", line 90, in run_until_complete
+    return f.result()
+  File "/opt/conda/lib/python3.10/asyncio/futures.py", line 201, in result
+    raise self._exception.with_traceback(self._exception_tb)
+  File "/opt/conda/lib/python3.10/asyncio/tasks.py", line 232, in __step
+    result = coro.send(None)
+  File "/opt/conda/lib/python3.10/site-packages/nbclient/client.py", line 1019, in async_execute_cell
+    await self._check_raise_for_error(cell, cell_index, exec_reply)
+  File "/opt/conda/lib/python3.10/site-packages/nbclient/client.py", line 913, in _check_raise_for_error
+    raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
+nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
+------------------
+# 0. Stoppe toute session existante
+try:
+    spark.stop()
+except:
+    pass
+
+# Recréation SparkSession en local, FS local et driver binding fixe
+from pyspark.sql import SparkSession
+spark = (
+    SparkSession.builder
+        .appName("03_Enrichment")
+        .master("local[*]")
+        .config("spark.hadoop.fs.defaultFS", "file:///")
+        .config("spark.driver.host", "127.0.0.1")
+        .config("spark.driver.bindAddress", "0.0.0.0")
+        .getOrCreate()
+)
+
+------------------
+
+[0;31m---------------------------------------------------------------------------[0m
+[0;31mTypeError[0m                                 Traceback (most recent call last)
+Cell [0;32mIn [1], line 16[0m
+[1;32m      7[0m [38;5;66;03m# Recréation SparkSession en local, FS local et driver binding fixe[39;00m
+[1;32m      8[0m [38;5;28;01mfrom[39;00m [38;5;21;01mpyspark[39;00m[38;5;21;01m.[39;00m[38;5;21;01msql[39;00m [38;5;28;01mimport[39;00m SparkSession
+[1;32m      9[0m spark [38;5;241m=[39m (
+[1;32m     10[0m     [43mSparkSession[49m[38;5;241;43m.[39;49m[43mbuilder[49m
+[1;32m     11[0m [43m        [49m[38;5;241;43m.[39;49m[43mappName[49m[43m([49m[38;5;124;43m"[39;49m[38;5;124;43m03_Enrichment[39;49m[38;5;124;43m"[39;49m[43m)[49m
+[1;32m     12[0m [43m        [49m[38;5;241;43m.[39;49m[43mmaster[49m[43m([49m[38;5;124;43m"[39;49m[38;5;124;43mlocal[*][39;49m[38;5;124;43m"[39;49m[43m)[49m
+[1;32m     13[0m [43m        [49m[38;5;241;43m.[39;49m[43mconfig[49m[43m([49m[38;5;124;43m"[39;49m[38;5;124;43mspark.hadoop.fs.defaultFS[39;49m[38;5;124;43m"[39;49m[43m,[49m[43m [49m[38;5;124;43m"[39;49m[38;5;124;43mfile:///[39;49m[38;5;124;43m"[39;49m[43m)[49m
+[1;32m     14[0m [43m        [49m[38;5;241;43m.[39;49m[43mconfig[49m[43m([49m[38;5;124;43m"[39;49m[38;5;124;43mspark.driver.host[39;49m[38;5;124;43m"[39;49m[43m,[49m[43m [49m[38;5;124;43m"[39;49m[38;5;124;43m127.0.0.1[39;49m[38;5;124;43m"[39;49m[43m)[49m
+[1;32m     15[0m [43m        [49m[38;5;241;43m.[39;49m[43mconfig[49m[43m([49m[38;5;124;43m"[39;49m[38;5;124;43mspark.driver.bindAddress[39;49m[38;5;124;43m"[39;49m[43m,[49m[43m [49m[38;5;124;43m"[39;49m[38;5;124;43m0.0.0.0[39;49m[38;5;124;43m"[39;49m[43m)[49m
+[0;32m---> 16[0m [43m        [49m[38;5;241;43m.[39;49m[43mgetOrCreate[49m[43m([49m[43m)[49m
+[1;32m     17[0m )
+
+File [0;32m/opt/conda/lib/python3.10/site-packages/pyspark/sql/session.py:559[0m, in [0;36mSparkSession.Builder.getOrCreate[0;34m(self)[0m
+[1;32m    556[0m     sc [38;5;241m=[39m SparkContext[38;5;241m.[39mgetOrCreate(sparkConf)
+[1;32m    557[0m     [38;5;66;03m# Do not update `SparkConf` for existing `SparkContext`, as it's shared[39;00m
+[1;32m    558[0m     [38;5;66;03m# by all sessions.[39;00m
+[0;32m--> 559[0m     session [38;5;241m=[39m [43mSparkSession[49m[43m([49m[43msc[49m[43m,[49m[43m [49m[43moptions[49m[38;5;241;43m=[39;49m[38;5;28;43mself[39;49m[38;5;241;43m.[39;49m[43m_options[49m[43m)[49m
+[1;32m    560[0m [38;5;28;01melse[39;00m:
+[1;32m    561[0m     module [38;5;241m=[39m SparkSession[38;5;241m.[39m_get_j_spark_session_module(session[38;5;241m.[39m_jvm)
+
+File [0;32m/opt/conda/lib/python3.10/site-packages/pyspark/sql/session.py:635[0m, in [0;36mSparkSession.__init__[0;34m(self, sparkContext, jsparkSession, options)[0m
+[1;32m    631[0m jSparkSessionModule [38;5;241m=[39m SparkSession[38;5;241m.[39m_get_j_spark_session_module([38;5;28mself[39m[38;5;241m.[39m_jvm)
+[1;32m    633[0m [38;5;28;01mif[39;00m jsparkSession [38;5;129;01mis[39;00m [38;5;28;01mNone[39;00m:
+[1;32m    634[0m     [38;5;28;01mif[39;00m (
+[0;32m--> 635[0m         [43mjSparkSessionClass[49m[38;5;241;43m.[39;49m[43mgetDefaultSession[49m[43m([49m[43m)[49m[38;5;241m.[39misDefined()
+[1;32m    636[0m         [38;5;129;01mand[39;00m [38;5;129;01mnot[39;00m jSparkSessionClass[38;5;241m.[39mgetDefaultSession()[38;5;241m.[39mget()[38;5;241m.[39msparkContext()[38;5;241m.[39misStopped()
+[1;32m    637[0m     ):
+[1;32m    638[0m         jsparkSession [38;5;241m=[39m jSparkSessionClass[38;5;241m.[39mgetDefaultSession()[38;5;241m.[39mget()
+[1;32m    639[0m         jSparkSessionModule[38;5;241m.[39mapplyModifiableSettings(jsparkSession, options)
+
+[0;31mTypeError[0m: 'JavaPackage' object is not callable
+TypeError: 'JavaPackage' object is not callable
+
+[Fri Jun 20 02:52:59 AM UTC 2025] ❌ ÉCHEC : 03_enrichment.ipynb
+[Fri Jun 20 02:52:59 AM UTC 2025] ▶️ DÉBUT : 04_analysis.ipynb
+[NbConvertApp] Converting notebook 04_analysis.ipynb to notebook
+Setting default log level to "WARN".
+To adjust logging level use sc.setLogLevel(newLevel). For SparkR, use setLogLevel(newLevel).
+25/06/20 02:53:04 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+Traceback (most recent call last):
+  File "/opt/conda/bin/jupyter-nbconvert", line 10, in <module>
+    sys.exit(main())
+  File "/opt/conda/lib/python3.10/site-packages/jupyter_core/application.py", line 269, in launch_instance
+    return super().launch_instance(argv=argv, **kwargs)
+  File "/opt/conda/lib/python3.10/site-packages/traitlets/config/application.py", line 982, in launch_instance
+    app.start()
+  File "/opt/conda/lib/python3.10/site-packages/nbconvert/nbconvertapp.py", line 426, in start
+    self.convert_notebooks()
+  File "/opt/conda/lib/python3.10/site-packages/nbconvert/nbconvertapp.py", line 600, in convert_notebooks
+    self.convert_single_notebook(notebook_filename)
+  File "/opt/conda/lib/python3.10/site-packages/nbconvert/nbconvertapp.py", line 563, in convert_single_notebook
+    output, resources = self.export_single_notebook(
+  File "/opt/conda/lib/python3.10/site-packages/nbconvert/nbconvertapp.py", line 491, in export_single_notebook
+    output, resources = self.exporter.from_filename(
+  File "/opt/conda/lib/python3.10/site-packages/nbconvert/exporters/exporter.py", line 190, in from_filename
+    return self.from_file(f, resources=resources, **kw)
+  File "/opt/conda/lib/python3.10/site-packages/nbconvert/exporters/exporter.py", line 207, in from_file
+    return self.from_notebook_node(
+  File "/opt/conda/lib/python3.10/site-packages/nbconvert/exporters/notebook.py", line 35, in from_notebook_node
+    nb_copy, resources = super().from_notebook_node(nb, resources, **kw)
+  File "/opt/conda/lib/python3.10/site-packages/nbconvert/exporters/exporter.py", line 147, in from_notebook_node
+    nb_copy, resources = self._preprocess(nb_copy, resources)
+  File "/opt/conda/lib/python3.10/site-packages/nbconvert/exporters/exporter.py", line 342, in _preprocess
+    nbc, resc = preprocessor(nbc, resc)
+  File "/opt/conda/lib/python3.10/site-packages/nbconvert/preprocessors/base.py", line 47, in __call__
+    return self.preprocess(nb, resources)
+  File "/opt/conda/lib/python3.10/site-packages/nbconvert/preprocessors/execute.py", line 91, in preprocess
+    self.preprocess_cell(cell, resources, index)
+  File "/opt/conda/lib/python3.10/site-packages/nbconvert/preprocessors/execute.py", line 112, in preprocess_cell
+    cell = self.execute_cell(cell, index, store_history=True)
+  File "/opt/conda/lib/python3.10/site-packages/nbclient/util.py", line 85, in wrapped
+    return just_run(coro(*args, **kwargs))
+  File "/opt/conda/lib/python3.10/site-packages/nbclient/util.py", line 60, in just_run
+    return loop.run_until_complete(coro)
+  File "/opt/conda/lib/python3.10/site-packages/nest_asyncio.py", line 90, in run_until_complete
+    return f.result()
+  File "/opt/conda/lib/python3.10/asyncio/futures.py", line 201, in result
+    raise self._exception.with_traceback(self._exception_tb)
+  File "/opt/conda/lib/python3.10/asyncio/tasks.py", line 232, in __step
+    result = coro.send(None)
+  File "/opt/conda/lib/python3.10/site-packages/nbclient/client.py", line 1019, in async_execute_cell
+    await self._check_raise_for_error(cell, cell_index, exec_reply)
+  File "/opt/conda/lib/python3.10/site-packages/nbclient/client.py", line 913, in _check_raise_for_error
+    raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
+nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
+------------------
+# 0. Stoppe toute session existante
+try:
+    spark.stop()
+except:
+    pass
+
+# Recréation SparkSession en local, FS local et driver binding fixe
+from pyspark.sql import SparkSession
+spark = (
+    SparkSession.builder
+        .appName("03_Enrichment")
+        .master("local[*]")
+        .config("spark.hadoop.fs.defaultFS", "file:///")
+        .config("spark.driver.host", "127.0.0.1")
+        .config("spark.driver.bindAddress", "0.0.0.0")
+        .getOrCreate()
+)
+
+------------------
+
+[0;31m---------------------------------------------------------------------------[0m
+[0;31mTypeError[0m                                 Traceback (most recent call last)
+Cell [0;32mIn [1], line 16[0m
+[1;32m      7[0m [38;5;66;03m# Recréation SparkSession en local, FS local et driver binding fixe[39;00m
+[1;32m      8[0m [38;5;28;01mfrom[39;00m [38;5;21;01mpyspark[39;00m[38;5;21;01m.[39;00m[38;5;21;01msql[39;00m [38;5;28;01mimport[39;00m SparkSession
+[1;32m      9[0m spark [38;5;241m=[39m (
+[1;32m     10[0m     [43mSparkSession[49m[38;5;241;43m.[39;49m[43mbuilder[49m
+[1;32m     11[0m [43m        [49m[38;5;241;43m.[39;49m[43mappName[49m[43m([49m[38;5;124;43m"[39;49m[38;5;124;43m03_Enrichment[39;49m[38;5;124;43m"[39;49m[43m)[49m
+[1;32m     12[0m [43m        [49m[38;5;241;43m.[39;49m[43mmaster[49m[43m([49m[38;5;124;43m"[39;49m[38;5;124;43mlocal[*][39;49m[38;5;124;43m"[39;49m[43m)[49m
+[1;32m     13[0m [43m        [49m[38;5;241;43m.[39;49m[43mconfig[49m[43m([49m[38;5;124;43m"[39;49m[38;5;124;43mspark.hadoop.fs.defaultFS[39;49m[38;5;124;43m"[39;49m[43m,[49m[43m [49m[38;5;124;43m"[39;49m[38;5;124;43mfile:///[39;49m[38;5;124;43m"[39;49m[43m)[49m
+[1;32m     14[0m [43m        [49m[38;5;241;43m.[39;49m[43mconfig[49m[43m([49m[38;5;124;43m"[39;49m[38;5;124;43mspark.driver.host[39;49m[38;5;124;43m"[39;49m[43m,[49m[43m [49m[38;5;124;43m"[39;49m[38;5;124;43m127.0.0.1[39;49m[38;5;124;43m"[39;49m[43m)[49m
+[1;32m     15[0m [43m        [49m[38;5;241;43m.[39;49m[43mconfig[49m[43m([49m[38;5;124;43m"[39;49m[38;5;124;43mspark.driver.bindAddress[39;49m[38;5;124;43m"[39;49m[43m,[49m[43m [49m[38;5;124;43m"[39;49m[38;5;124;43m0.0.0.0[39;49m[38;5;124;43m"[39;49m[43m)[49m
+[0;32m---> 16[0m [43m        [49m[38;5;241;43m.[39;49m[43mgetOrCreate[49m[43m([49m[43m)[49m
+[1;32m     17[0m )
+
+File [0;32m/opt/conda/lib/python3.10/site-packages/pyspark/sql/session.py:559[0m, in [0;36mSparkSession.Builder.getOrCreate[0;34m(self)[0m
+[1;32m    556[0m     sc [38;5;241m=[39m SparkContext[38;5;241m.[39mgetOrCreate(sparkConf)
+[1;32m    557[0m     [38;5;66;03m# Do not update `SparkConf` for existing `SparkContext`, as it's shared[39;00m
+[1;32m    558[0m     [38;5;66;03m# by all sessions.[39;00m
+[0;32m--> 559[0m     session [38;5;241m=[39m [43mSparkSession[49m[43m([49m[43msc[49m[43m,[49m[43m [49m[43moptions[49m[38;5;241;43m=[39;49m[38;5;28;43mself[39;49m[38;5;241;43m.[39;49m[43m_options[49m[43m)[49m
+[1;32m    560[0m [38;5;28;01melse[39;00m:
+[1;32m    561[0m     module [38;5;241m=[39m SparkSession[38;5;241m.[39m_get_j_spark_session_module(session[38;5;241m.[39m_jvm)
+
+File [0;32m/opt/conda/lib/python3.10/site-packages/pyspark/sql/session.py:635[0m, in [0;36mSparkSession.__init__[0;34m(self, sparkContext, jsparkSession, options)[0m
+[1;32m    631[0m jSparkSessionModule [38;5;241m=[39m SparkSession[38;5;241m.[39m_get_j_spark_session_module([38;5;28mself[39m[38;5;241m.[39m_jvm)
+[1;32m    633[0m [38;5;28;01mif[39;00m jsparkSession [38;5;129;01mis[39;00m [38;5;28;01mNone[39;00m:
+[1;32m    634[0m     [38;5;28;01mif[39;00m (
+[0;32m--> 635[0m         [43mjSparkSessionClass[49m[38;5;241;43m.[39;49m[43mgetDefaultSession[49m[43m([49m[43m)[49m[38;5;241m.[39misDefined()
+[1;32m    636[0m         [38;5;129;01mand[39;00m [38;5;129;01mnot[39;00m jSparkSessionClass[38;5;241m.[39mgetDefaultSession()[38;5;241m.[39mget()[38;5;241m.[39msparkContext()[38;5;241m.[39misStopped()
+[1;32m    637[0m     ):
+[1;32m    638[0m         jsparkSession [38;5;241m=[39m jSparkSessionClass[38;5;241m.[39mgetDefaultSession()[38;5;241m.[39mget()
+[1;32m    639[0m         jSparkSessionModule[38;5;241m.[39mapplyModifiableSettings(jsparkSession, options)
+
+[0;31mTypeError[0m: 'JavaPackage' object is not callable
+TypeError: 'JavaPackage' object is not callable
+
+[Fri Jun 20 02:53:09 AM UTC 2025] ❌ ÉCHEC : 04_analysis.ipynb
+[Fri Jun 20 02:53:09 AM UTC 2025] ▶️ DÉBUT : 05_visualisation.ipynb
+[NbConvertApp] Converting notebook 05_visualisation.ipynb to notebook
+Setting default log level to "WARN".
+To adjust logging level use sc.setLogLevel(newLevel). For SparkR, use setLogLevel(newLevel).
+25/06/20 02:53:14 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+25/06/20 02:53:16 WARN JavaUtils: Attempt to delete using native Unix OS command failed for path = /tmp/blockmgr-c4b78e79-dd08-4434-864e-ef9c46682a81. Falling back to Java IO way
+java.io.IOException: Failed to delete: /tmp/blockmgr-c4b78e79-dd08-4434-864e-ef9c46682a81
+	at org.apache.spark.network.util.JavaUtils.deleteRecursivelyUsingUnixNative(JavaUtils.java:171)
+	at org.apache.spark.network.util.JavaUtils.deleteRecursively(JavaUtils.java:110)
+	at org.apache.spark.network.util.JavaUtils.deleteRecursively(JavaUtils.java:91)
+	at org.apache.spark.util.Utils$.deleteRecursively(Utils.scala:1206)
+	at org.apache.spark.storage.DiskBlockManager.$anonfun$doStop$1(DiskBlockManager.scala:374)
+	at org.apache.spark.storage.DiskBlockManager.$anonfun$doStop$1$adapted(DiskBlockManager.scala:370)
+	at scala.collection.IndexedSeqOptimized.foreach(IndexedSeqOptimized.scala:36)
+	at scala.collection.IndexedSeqOptimized.foreach$(IndexedSeqOptimized.scala:33)
+	at scala.collection.mutable.ArrayOps$ofRef.foreach(ArrayOps.scala:198)
+	at org.apache.spark.storage.DiskBlockManager.doStop(DiskBlockManager.scala:370)
+	at org.apache.spark.storage.DiskBlockManager.stop(DiskBlockManager.scala:365)
+	at org.apache.spark.storage.BlockManager.stop(BlockManager.scala:2016)
+	at org.apache.spark.SparkEnv.stop(SparkEnv.scala:95)
+	at org.apache.spark.SparkContext.$anonfun$stop$23(SparkContext.scala:2140)
+	at org.apache.spark.util.Utils$.tryLogNonFatalError(Utils.scala:1484)
+	at org.apache.spark.SparkContext.stop(SparkContext.scala:2140)
+	at org.apache.spark.SparkContext.$anonfun$new$35(SparkContext.scala:660)
+	at org.apache.spark.util.SparkShutdownHook.run(ShutdownHookManager.scala:214)
+	at org.apache.spark.util.SparkShutdownHookManager.$anonfun$runAll$2(ShutdownHookManager.scala:188)
+	at scala.runtime.java8.JFunction0$mcV$sp.apply(JFunction0$mcV$sp.java:23)
+	at org.apache.spark.util.Utils$.logUncaughtExceptions(Utils.scala:2066)
+	at org.apache.spark.util.SparkShutdownHookManager.$anonfun$runAll$1(ShutdownHookManager.scala:188)
+	at scala.runtime.java8.JFunction0$mcV$sp.apply(JFunction0$mcV$sp.java:23)
+	at scala.util.Try$.apply(Try.scala:213)
+	at org.apache.spark.util.SparkShutdownHookManager.runAll(ShutdownHookManager.scala:188)
+	at org.apache.spark.util.SparkShutdownHookManager$$anon$2.run(ShutdownHookManager.scala:178)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:515)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
+	at java.base/java.lang.Thread.run(Thread.java:829)
+Traceback (most recent call last):
+  File "/opt/conda/bin/jupyter-nbconvert", line 10, in <module>
+    sys.exit(main())
+  File "/opt/conda/lib/python3.10/site-packages/jupyter_core/application.py", line 269, in launch_instance
+    return super().launch_instance(argv=argv, **kwargs)
+  File "/opt/conda/lib/python3.10/site-packages/traitlets/config/application.py", line 982, in launch_instance
+    app.start()
+  File "/opt/conda/lib/python3.10/site-packages/nbconvert/nbconvertapp.py", line 426, in start
+    self.convert_notebooks()
+  File "/opt/conda/lib/python3.10/site-packages/nbconvert/nbconvertapp.py", line 600, in convert_notebooks
+    self.convert_single_notebook(notebook_filename)
+  File "/opt/conda/lib/python3.10/site-packages/nbconvert/nbconvertapp.py", line 563, in convert_single_notebook
+    output, resources = self.export_single_notebook(
+  File "/opt/conda/lib/python3.10/site-packages/nbconvert/nbconvertapp.py", line 491, in export_single_notebook
+    output, resources = self.exporter.from_filename(
+  File "/opt/conda/lib/python3.10/site-packages/nbconvert/exporters/exporter.py", line 190, in from_filename
+    return self.from_file(f, resources=resources, **kw)
+  File "/opt/conda/lib/python3.10/site-packages/nbconvert/exporters/exporter.py", line 207, in from_file
+    return self.from_notebook_node(
+  File "/opt/conda/lib/python3.10/site-packages/nbconvert/exporters/notebook.py", line 35, in from_notebook_node
+    nb_copy, resources = super().from_notebook_node(nb, resources, **kw)
+  File "/opt/conda/lib/python3.10/site-packages/nbconvert/exporters/exporter.py", line 147, in from_notebook_node
+    nb_copy, resources = self._preprocess(nb_copy, resources)
+  File "/opt/conda/lib/python3.10/site-packages/nbconvert/exporters/exporter.py", line 342, in _preprocess
+    nbc, resc = preprocessor(nbc, resc)
+  File "/opt/conda/lib/python3.10/site-packages/nbconvert/preprocessors/base.py", line 47, in __call__
+    return self.preprocess(nb, resources)
+  File "/opt/conda/lib/python3.10/site-packages/nbconvert/preprocessors/execute.py", line 91, in preprocess
+    self.preprocess_cell(cell, resources, index)
+  File "/opt/conda/lib/python3.10/site-packages/nbconvert/preprocessors/execute.py", line 112, in preprocess_cell
+    cell = self.execute_cell(cell, index, store_history=True)
+  File "/opt/conda/lib/python3.10/site-packages/nbclient/util.py", line 85, in wrapped
+    return just_run(coro(*args, **kwargs))
+  File "/opt/conda/lib/python3.10/site-packages/nbclient/util.py", line 60, in just_run
+    return loop.run_until_complete(coro)
+  File "/opt/conda/lib/python3.10/site-packages/nest_asyncio.py", line 90, in run_until_complete
+    return f.result()
+  File "/opt/conda/lib/python3.10/asyncio/futures.py", line 201, in result
+    raise self._exception.with_traceback(self._exception_tb)
+  File "/opt/conda/lib/python3.10/asyncio/tasks.py", line 232, in __step
+    result = coro.send(None)
+  File "/opt/conda/lib/python3.10/site-packages/nbclient/client.py", line 1019, in async_execute_cell
+    await self._check_raise_for_error(cell, cell_index, exec_reply)
+  File "/opt/conda/lib/python3.10/site-packages/nbclient/client.py", line 913, in _check_raise_for_error
+    raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
+nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
+------------------
+# 0. Stoppe toute session existante
+try:
+    spark.stop()
+except:
+    pass
+
+# Recréation SparkSession en local, FS local et driver binding fixe
+from pyspark.sql import SparkSession
+spark = (
+    SparkSession.builder
+        .appName("03_Enrichment")
+        .master("local[*]")
+        .config("spark.hadoop.fs.defaultFS", "file:///")
+        .config("spark.driver.host", "127.0.0.1")
+        .config("spark.driver.bindAddress", "0.0.0.0")
+        .getOrCreate()
+)
+
+------------------
+
+[0;31m---------------------------------------------------------------------------[0m
+[0;31mTypeError[0m                                 Traceback (most recent call last)
+Cell [0;32mIn [1], line 16[0m
+[1;32m      7[0m [38;5;66;03m# Recréation SparkSession en local, FS local et driver binding fixe[39;00m
+[1;32m      8[0m [38;5;28;01mfrom[39;00m [38;5;21;01mpyspark[39;00m[38;5;21;01m.[39;00m[38;5;21;01msql[39;00m [38;5;28;01mimport[39;00m SparkSession
+[1;32m      9[0m spark [38;5;241m=[39m (
+[1;32m     10[0m     [43mSparkSession[49m[38;5;241;43m.[39;49m[43mbuilder[49m
+[1;32m     11[0m [43m        [49m[38;5;241;43m.[39;49m[43mappName[49m[43m([49m[38;5;124;43m"[39;49m[38;5;124;43m03_Enrichment[39;49m[38;5;124;43m"[39;49m[43m)[49m
+[1;32m     12[0m [43m        [49m[38;5;241;43m.[39;49m[43mmaster[49m[43m([49m[38;5;124;43m"[39;49m[38;5;124;43mlocal[*][39;49m[38;5;124;43m"[39;49m[43m)[49m
+[1;32m     13[0m [43m        [49m[38;5;241;43m.[39;49m[43mconfig[49m[43m([49m[38;5;124;43m"[39;49m[38;5;124;43mspark.hadoop.fs.defaultFS[39;49m[38;5;124;43m"[39;49m[43m,[49m[43m [49m[38;5;124;43m"[39;49m[38;5;124;43mfile:///[39;49m[38;5;124;43m"[39;49m[43m)[49m
+[1;32m     14[0m [43m        [49m[38;5;241;43m.[39;49m[43mconfig[49m[43m([49m[38;5;124;43m"[39;49m[38;5;124;43mspark.driver.host[39;49m[38;5;124;43m"[39;49m[43m,[49m[43m [49m[38;5;124;43m"[39;49m[38;5;124;43m127.0.0.1[39;49m[38;5;124;43m"[39;49m[43m)[49m
+[1;32m     15[0m [43m        [49m[38;5;241;43m.[39;49m[43mconfig[49m[43m([49m[38;5;124;43m"[39;49m[38;5;124;43mspark.driver.bindAddress[39;49m[38;5;124;43m"[39;49m[43m,[49m[43m [49m[38;5;124;43m"[39;49m[38;5;124;43m0.0.0.0[39;49m[38;5;124;43m"[39;49m[43m)[49m
+[0;32m---> 16[0m [43m        [49m[38;5;241;43m.[39;49m[43mgetOrCreate[49m[43m([49m[43m)[49m
+[1;32m     17[0m )
+
+File [0;32m/opt/conda/lib/python3.10/site-packages/pyspark/sql/session.py:559[0m, in [0;36mSparkSession.Builder.getOrCreate[0;34m(self)[0m
+[1;32m    556[0m     sc [38;5;241m=[39m SparkContext[38;5;241m.[39mgetOrCreate(sparkConf)
+[1;32m    557[0m     [38;5;66;03m# Do not update `SparkConf` for existing `SparkContext`, as it's shared[39;00m
+[1;32m    558[0m     [38;5;66;03m# by all sessions.[39;00m
+[0;32m--> 559[0m     session [38;5;241m=[39m [43mSparkSession[49m[43m([49m[43msc[49m[43m,[49m[43m [49m[43moptions[49m[38;5;241;43m=[39;49m[38;5;28;43mself[39;49m[38;5;241;43m.[39;49m[43m_options[49m[43m)[49m
+[1;32m    560[0m [38;5;28;01melse[39;00m:
+[1;32m    561[0m     module [38;5;241m=[39m SparkSession[38;5;241m.[39m_get_j_spark_session_module(session[38;5;241m.[39m_jvm)
+
+File [0;32m/opt/conda/lib/python3.10/site-packages/pyspark/sql/session.py:635[0m, in [0;36mSparkSession.__init__[0;34m(self, sparkContext, jsparkSession, options)[0m
+[1;32m    631[0m jSparkSessionModule [38;5;241m=[39m SparkSession[38;5;241m.[39m_get_j_spark_session_module([38;5;28mself[39m[38;5;241m.[39m_jvm)
+[1;32m    633[0m [38;5;28;01mif[39;00m jsparkSession [38;5;129;01mis[39;00m [38;5;28;01mNone[39;00m:
+[1;32m    634[0m     [38;5;28;01mif[39;00m (
+[0;32m--> 635[0m         [43mjSparkSessionClass[49m[38;5;241;43m.[39;49m[43mgetDefaultSession[49m[43m([49m[43m)[49m[38;5;241m.[39misDefined()
+[1;32m    636[0m         [38;5;129;01mand[39;00m [38;5;129;01mnot[39;00m jSparkSessionClass[38;5;241m.[39mgetDefaultSession()[38;5;241m.[39mget()[38;5;241m.[39msparkContext()[38;5;241m.[39misStopped()
+[1;32m    637[0m     ):
+[1;32m    638[0m         jsparkSession [38;5;241m=[39m jSparkSessionClass[38;5;241m.[39mgetDefaultSession()[38;5;241m.[39mget()
+[1;32m    639[0m         jSparkSessionModule[38;5;241m.[39mapplyModifiableSettings(jsparkSession, options)
+
+[0;31mTypeError[0m: 'JavaPackage' object is not callable
+TypeError: 'JavaPackage' object is not callable
+
+[Fri Jun 20 02:53:19 AM UTC 2025] ❌ ÉCHEC : 05_visualisation.ipynb
