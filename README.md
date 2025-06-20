@@ -10,7 +10,7 @@ git clone https://github.com/JokerPoix/openfoodfact-TP-Attik.git
 
 ### 2. Lancer le projet
 ```bash
-cd openfoodfacts-etl
+cd penfoodfact-TP-Attik
 docker-compose up --build
 ```
 se rendre sur http://localhost:8888
